@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 m = 1.0 #9.1*10**(-31)  (on utilise pas car perte précision)# masse de la particule
 hbar = 1.0 # 1.054571628*10**(-34) (on utilise pas car perte précision)
 
-#Functions allowing me to do cool math stuff
-
+#fonction permettant de créer un paquet d'onde de gauss
 def GaussWP(k0, a, ux, t):
     x = ux #-1/k0*2
+    #j'ai séparé le diviseur
     diver = m * a ** 2 + 2j * hbar * t
 
     # facteur d'amplitude
@@ -25,12 +25,12 @@ x_values = np.linspace(-2/k0, 2/k0, 500)
 
 psi = GaussWP(0.821,1, ux=x_values, t=0.0)
 
-# Extract components
+# Extract composantes
 partie_reelle = np.real(psi)
 partie_imaginaire = np.imag(psi)
 densite_proba = np.abs(psi)**2
 
-# Visualization
+# Visualisation
 fig, axs = plt.subplots(2, 1, figsize=(8, 8))
 
 axs[0].plot(x_values, densite_proba, label="Densité de probabilité", color="red")
