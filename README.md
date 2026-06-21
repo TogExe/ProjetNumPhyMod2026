@@ -110,3 +110,5 @@ python PaquetOndeGauss1d2G.py    # Partie 2
 python SchrodingerNumerique2G.py # Partie 3
 python Partie4.py                # Partie 4 (quelques minutes)
 ```
+
+(Oui, le texte a été mis en forme par l'IA... aucune envie d'apprendre le html !)
