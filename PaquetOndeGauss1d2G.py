@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 m = 1.0 #9.1*10**(-31)  (on utilise pas car perte précision)# masse de la particule
 hbar = 1.0 # 1.054571628*10**(-34) (on utilise pas car perte précision)
 
+k0 = 0.821
+
 #fonction permettant de créer un paquet d'onde de gauss
 def GaussWP(k0, a, ux, t):
     x = ux #-1/k0*2
@@ -19,7 +21,6 @@ def GaussWP(k0, a, ux, t):
     return amp * np.exp(partexp)
 
 # Params
-k0 = 0.821
 x_values = np.linspace(-2/k0, 2/k0, 500)
 #x_values = np.linspace(0, 10, 500)
 
