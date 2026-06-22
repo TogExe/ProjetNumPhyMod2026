@@ -1,4 +1,144 @@
-from numpy import pi, exp, sqrt, real, imag, zeros, linspace
+from numpy import pi, exp, real, imag, linspace, cos
+import matplotlib.pyplot as plt
+
+PI = pi
+
+# --------------------------------------------------
+# Question 2.a
+# --------------------------------------------------
+# En Python, le nombre imaginaire i s'écrit 1j
+
+def PlaneWave(amp, k, omega, x, t):
+    return amp * exp(1j * (k * x - omega * t))
+
+
+# --------------------------------------------------
+# Question 2.b
+# --------------------------------------------------
+
+# Paramètres
+A = 1.0
+k0 = 0.8
+dk = 0.8
+omega = 0.5
+t = 0.0
+
+# Axe des positions
+x_values = linspace(-pi / dk, pi / dk, 500)
+
+# Ondes individuelles
+psi = PlaneWave(A, k0, omega, x_values, t)
+
+psi2 = PlaneWave(
+    amp=A / 2,
+    k=k0 - dk / 2,
+    omega=omega,
+    x=x_values,
+    t=t
+)
+
+psi3 = PlaneWave(
+    amp=A / 2,
+    k=k0 + dk / 2,
+    omega=omega,
+    x=x_values,
+    t=t
+)
+
+# Somme des trois ondes (paquet d'onde)
+psi4 = psi + psi2 + psi3
+
+# Partie réelle et imaginaire de l'onde centrale
+partie_reelle = real(psi)
+partie_imaginaire = imag(psi)
+
+# Enveloppe théorique
+enveloppe = A * (1 + cos(dk * x_values / 2))
+
+# --------------------------------------------------
+# Tracés
+# --------------------------------------------------
+
+fig, axs = plt.subplots(2, figsize=(10, 8))
+
+# Graphique 1 : somme des trois ondes
+axs[0].plot(
+    x_values,
+    real(psi4),
+    label="Somme",
+    color="blue"
+)
+
+axs[0].plot(
+    x_values,
+    real(psi2),
+    label=r"$k_0-\Delta k/2$",
+    color="orange",
+    linestyle="--"
+)
+
+axs[0].plot(
+    x_values,
+    real(psi3),
+    label=r"$k_0+\Delta k/2$",
+    color="green",
+    linestyle="--"
+)
+
+axs[0].plot(
+    x_values,
+    real(psi),
+    label=r"$k_0$",
+    color="red",
+    linestyle="--"
+)
+
+# Enveloppes
+axs[0].plot(
+    x_values,
+    enveloppe,
+    "k:",
+    linewidth=2,
+    label="Enveloppe"
+)
+
+axs[0].plot(
+    x_values,
+    -enveloppe,
+    "k:",
+    linewidth=2
+)
+
+axs[0].set_title("Somme des parties réelles de 3 ondes planes")
+axs[0].set_xlabel("Position x")
+axs[0].set_ylabel("Amplitude")
+axs[0].legend()
+axs[0].grid(True)
+
+# Graphique 2 : onde centrale
+axs[1].plot(
+    x_values,
+    partie_reelle,
+    label="Partie réelle",
+    color="blue"
+)
+
+axs[1].plot(
+    x_values,
+    partie_imaginaire,
+    label="Partie imaginaire",
+    color="red",
+    linestyle="--"
+)
+
+axs[1].set_title("Parties réelle et imaginaire d'une onde plane")
+axs[1].set_xlabel("Position x")
+axs[1].set_ylabel("Amplitude")
+axs[1].legend()
+axs[1].grid(True)
+
+plt.tight_layout()
+plt.show()from numpy import pi, exp, sqrt, real, imag, zeros, linspace
 import matplotlib.pyplot as plt
 PI = pi
 
