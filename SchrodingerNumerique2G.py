@@ -1,35 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# =============================================================================
-# Partie 3 — Résolution numérique de l'équation de Schrödinger
-# =============================================================================
-#
-# 3.1 Algorithme de dérivation
-#     a. Définition de la dérivée
-#     b. Algorithme sur tableau 1D
-#     c. Fonctions x² et 2x
-#     d. Validation : dérivée numérique de x² comparée à 2x
-#     2. Reprendre pour la dérivée seconde
-#
-# 3.2 Algorithme pour l'équation de Schrödinger
-#     1. Rappel équation de Schrödinger 1D avec potentiel V0
-#     2. Tableau 2D (nx lignes, nt colonnes)
-#     3. Tableaux linspace pour x et t
-#     4. Algorithme d'évolution (Euler explicite)
-#     5. Confrontation avec PaquetOndeGauss1d (V0=0)
-# =============================================================================
-
 m    = 1.0
 hbar = 1.0
 
-# =============================================================================
 # 3.1 — ALGORITHME DE DÉRIVATION
-# =============================================================================
 
-# -----------------------------------------------------------------------------
 # 3.1.1a — Définition de la dérivée
-# -----------------------------------------------------------------------------
+
 # La dérivée d'une fonction réelle f en un point x est définie par :
 #
 #   f'(x) = lim_{h→0} [f(x+h) - f(x)] / h
@@ -40,9 +18,7 @@ hbar = 1.0
 # Pour une meilleure précision, on utilise les différences centrées (ordre 2) :
 #   f'(x_i) ≈ [f(x_{i+1}) - f(x_{i-1})] / (2·dx)
 
-# -----------------------------------------------------------------------------
 # 3.1.1b — Algorithme sur tableau 1D (dérivée première)
-# -----------------------------------------------------------------------------
 
 def derivee_premiere(f, dx):
     """
@@ -75,10 +51,7 @@ def derivee_premiere(f, dx):
 
     return df
 
-
-# -----------------------------------------------------------------------------
 # 3.1.1c — Fonctions x² et 2x
-# -----------------------------------------------------------------------------
 
 def carre(x):
     """Retourne x²."""
@@ -88,10 +61,7 @@ def derivee_carre(x):
     """Retourne la dérivée analytique de x², soit 2x."""
     return 2 * x
 
-
-# -----------------------------------------------------------------------------
 # 3.1.1d — Validation : dérivée numérique de x² vs 2x
-# -----------------------------------------------------------------------------
 
 def valider_derivee_premiere():
     x  = np.linspace(0, 2, 500)
@@ -128,10 +98,7 @@ def valider_derivee_premiere():
     plt.tight_layout()
     plt.show()
 
-
-# -----------------------------------------------------------------------------
 # 3.1.2 — Dérivée seconde
-# -----------------------------------------------------------------------------
 #
 # Définition discrète :
 #   f''(x_i) ≈ [f(x_{i+1}) - 2·f(x_i) + f(x_{i-1})] / dx²
@@ -208,13 +175,9 @@ def valider_derivee_seconde():
     plt.show()
 
 
-# =============================================================================
 # 3.2 — ALGORITHME POUR L'ÉQUATION DE SCHRÖDINGER
-# =============================================================================
 
-# -----------------------------------------------------------------------------
 # 3.2.1 — Rappel : équation de Schrödinger 1D avec potentiel constant V0
-# -----------------------------------------------------------------------------
 #
 # iℏ ∂Ψ/∂t = -ℏ²/(2m) ∂²Ψ/∂x²  +  V0·Ψ
 #
@@ -225,9 +188,7 @@ def valider_derivee_seconde():
 #   dt  <  m·dx² / (π·ℏ)
 
 
-# -----------------------------------------------------------------------------
 # 3.2.2–3 — Paquet d'ondes gaussien (condition initiale) + grilles
-# -----------------------------------------------------------------------------
 
 def GaussWP(k0, a, x, t):
     """Paquet d'ondes gaussien analytique (formule 6 du projet)."""
@@ -236,10 +197,7 @@ def GaussWP(k0, a, x, t):
     partexp = (m / 4) * ((a**2 * k0 + 2j * x)**2 / diver) - (a**2 * k0**2) / 4
     return amp * np.exp(partexp)
 
-
-# -----------------------------------------------------------------------------
 # 3.2.4 — Algorithme d'évolution (Euler explicite)
-# -----------------------------------------------------------------------------
 
 def euler_schrodinger(psi0, x, t_array, V0=0.0):
     """
@@ -286,9 +244,7 @@ def euler_schrodinger(psi0, x, t_array, V0=0.0):
     return psi_2d
 
 
-# -----------------------------------------------------------------------------
 # 3.2.5 — Confrontation numérique vs analytique (V0=0)
-# -----------------------------------------------------------------------------
 
 def confrontation(k0=2.0, a=3.0, n_instants=5):
     """
@@ -372,9 +328,7 @@ def confrontation(k0=2.0, a=3.0, n_instants=5):
     return psi_2d, x, t_arr
 
 
-# =============================================================================
 # POINT D'ENTRÉE
-# =============================================================================
 
 if __name__ == "__main__":
 
@@ -382,13 +336,13 @@ if __name__ == "__main__":
     print("  PARTIE 3 — Résolution numérique de Schrödinger")
     print("=" * 55)
 
-    # ── 3.1.1 Dérivée première ──────────────────────────────────────────────
+    # ── 3.1.1 Dérivée première
     valider_derivee_premiere()
 
-    # ── 3.1.2 Dérivée seconde ───────────────────────────────────────────────
+    # ── 3.1.2 Dérivée seconde
     valider_derivee_seconde()
 
-    # ── 3.2 Évolution Schrödinger ───────────────────────────────────────────
+    # ── 3.2 Évolution Schrödinger 
     print("\n=== 3.2 Paramètres de la simulation ===")
     k0 = 2.0
     a  = 3.0
