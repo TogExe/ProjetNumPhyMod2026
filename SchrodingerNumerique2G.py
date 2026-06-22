@@ -226,7 +226,7 @@ def euler_schrodinger(psi0, x, t_array, V0=0.0):
     # Vérification stabilité CFL
     dt_max = m * dx**2 / (np.pi * hbar)
     if dt > dt_max:
-        print(f"  ⚠️  dt={dt:.2e} > dt_max={dt_max:.2e} : instabilité possible !")
+        print(f"   dt={dt:.2e} > dt_max={dt_max:.2e} : instabilité possible !")
 
     # Tableau 2D : psi_2d[ix, it]
     psi_2d       = np.zeros((nx, nt), dtype=complex)
